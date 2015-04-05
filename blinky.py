@@ -44,5 +44,5 @@ def Rave(pins, iterations, speed):
 
 setup()
 ledPins = [24, 12]
-Rave(ledPins, 5, .25)
+Rave(ledPins, 20, .25)
 GPIO.cleanup()
