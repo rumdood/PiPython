@@ -5,7 +5,7 @@ def setup(pins):
 	GPIO.setmode(GPIO.BCM)
 
 	## Enable the pins tied to the LEDs
-	for color, pin in pins:
+	for color, pin in pins.items():
 		print("Enabling " + color + " LED on pin " + str(pin))
 		GPIO.setup(pin, GPIO.OUT)
 
@@ -15,7 +15,7 @@ def Rave(pins, iterations, speed):
 	time.sleep(speed)
 
 	for i in range(0, iterations):
-		for color, pin in pins:
+		for color, pin in pins.items:
 			pinStatus = GPIO.input(pin)
 			if pinStatus > 0:
 				print(color + " OFF")
