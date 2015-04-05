@@ -29,7 +29,7 @@ def Rave(pins, iterations, speed):
 			
 
 	## shut it all down
-	for color, pin in pins:
+	for color, pin in pins.items():
 		GPIO.output(pin, False)
 
 ledPins = { 'Red': 24, 'Yellow': 12 }
