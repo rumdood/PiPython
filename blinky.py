@@ -14,14 +14,15 @@ def Blink(pin, iterations, speed):
 		time.sleep(speed)
 
 def Rave(pins, iterations, speed):
-	GPIO.output(pins[1], True)
+	GPIO.output(pins[0], True)
 	time.sleep(speed)
 
 	for i in range(1, iterations):
+		print("Iteration " + str(i))
 		for pin in pins:
 			print(GPIO.input(pin))
 
-	GPIO.output(pins[1], False)
+	GPIO.output(pins[0], False)
 
 ##redPin = 24
 ##redIterations = 10
