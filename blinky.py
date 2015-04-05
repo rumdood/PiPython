@@ -25,6 +25,9 @@ def Rave(pins, iterations, speed):
 				GPIO.output(pin, False)
 			else:
 				GPIO.output(pin, True)
+
+		print("Iteration Complete " + str(i))
+		time.sleep(speed)
 			
 
 	## shut it all down
