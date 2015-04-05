@@ -15,17 +15,21 @@ def Blink(pin, iterations, speed):
 
 def Rave(pins, iterations, speed):
 	print("RAVING")
-	pinStatus = GPIO.input(24)
-	print("24 Status: " + str(pinStatus))
 	GPIO.output(pins[0], True)
 	time.sleep(speed)
 
 	for i in range(0, iterations):
-		print("Iteration " + str(i))
 		for pin in pins:
-			print(GPIO.input(pin))
+			pinStatus = GPIO.input(pin)
+			if pinStatus > 0:
+				GPIO.output(pin, False)
+			else:
+				GPIO.output(pin, True)
+			
 
-	GPIO.output(pins[0], False)
+	## shut it all down
+	for pin in pins:
+		GPIO.output(pin, False)
 
 ##redPin = 24
 ##redIterations = 10
