@@ -20,7 +20,7 @@ def Rave(pins, iterations, speed):
 	GPIO.output(pins[0], True)
 	time.sleep(speed)
 
-	for i in range(1, iterations):
+	for i in range(0, iterations):
 		print("Iteration " + str(i))
 		for pin in pins:
 			print(GPIO.input(pin))
@@ -37,5 +37,5 @@ def Rave(pins, iterations, speed):
 
 setup()
 ledPins = [24, 12]
-Rave(ledPins, 1, 1)
+Rave(ledPins, 5, 1)
 GPIO.cleanup()
