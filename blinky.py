@@ -13,13 +13,16 @@ def Blink(pin, iterations, speed):
 		GPIO.output(pin, False)
 		time.sleep(speed)
 
+redPin = 24
 redIterations = 10
 redSpeed = .5
-redPin = 24
 
 yellowPin = 12
+yellowIterations = 5
+yellowSpeed = .25
 
 setup()
 Blink(redPin, redIterations, redSpeed)
+Blink(yellowPin, yellowIterations, yellowSpeed)
 
 GPIO.cleanup()
