@@ -13,16 +13,25 @@ def Blink(pin, iterations, speed):
 		GPIO.output(pin, False)
 		time.sleep(speed)
 
-redPin = 24
-redIterations = 10
-redSpeed = .5
+def Rave(pins, iterations, speed):
+	GPIO.output(pins[1], True)
+	time.sleep(speed)
 
-yellowPin = 12
-yellowIterations = 5
-yellowSpeed = .25
+	for i in range(1, iterations):
+		for pin in pins:
+			print(GPIO.input(pin))
+
+	GPIO.output(pins[1], False)
+
+##redPin = 24
+##redIterations = 10
+##redSpeed = .5
+
+##yellowPin = 12
+##yellowIterations = 5
+##yellowSpeed = .25
 
 setup()
-Blink(redPin, redIterations, redSpeed)
-Blink(yellowPin, yellowIterations, yellowSpeed)
-
+ledPins = [24, 12]
+Rave(ledPins, 1, 1)
 GPIO.cleanup()
