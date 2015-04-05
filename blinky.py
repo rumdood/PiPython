@@ -11,7 +11,7 @@ def setup(pins):
 
 def Rave(pins, iterations, speed):
 	print("RAVING")
-	GPIO.output(pins[0], True)
+	GPIO.output(pins['Red'], True)
 	time.sleep(speed)
 
 	for i in range(0, iterations):
