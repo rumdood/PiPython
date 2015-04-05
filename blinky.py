@@ -1,17 +1,13 @@
 import RPi.GPIO as GPIO
 import time
 
-def setup():
+def setup(pins):
 	GPIO.setmode(GPIO.BCM)
-	GPIO.setup(24, GPIO.OUT)
-	GPIO.setup(12, GPIO.OUT)
 
-def Blink(pin, iterations, speed):
-	for i in range(0, iterations):
-		GPIO.output(pin, True)
-		time.sleep(speed)
-		GPIO.output(pin, False)
-		time.sleep(speed)
+	## Enable the pins tied to the LEDs
+	for color, pin in pins:
+		print("Enabling " + color + " LED on pin " + str(pin))
+		GPIO.setup(pin, GPIO.OUT)
 
 def Rave(pins, iterations, speed):
 	print("RAVING")
@@ -19,11 +15,13 @@ def Rave(pins, iterations, speed):
 	time.sleep(speed)
 
 	for i in range(0, iterations):
-		for pin in pins:
+		for color, pin in pins:
 			pinStatus = GPIO.input(pin)
 			if pinStatus > 0:
+				print(color + " OFF")
 				GPIO.output(pin, False)
 			else:
+				print(color + " ON")
 				GPIO.output(pin, True)
 
 		##print("Iteration Complete " + str(i))
@@ -31,18 +29,11 @@ def Rave(pins, iterations, speed):
 			
 
 	## shut it all down
-	for pin in pins:
+	for color, pin in pins:
 		GPIO.output(pin, False)
 
-##redPin = 24
-##redIterations = 10
-##redSpeed = .5
+ledPins = { 'Red': 24, 'Yellow': 12 }
 
-##yellowPin = 12
-##yellowIterations = 5
-##yellowSpeed = .25
-
-setup()
-ledPins = [24, 12]
+setup(ledPins)
 Rave(ledPins, 20, .25)
 GPIO.cleanup()
