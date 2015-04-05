@@ -1,12 +1,12 @@
 import RPi.GPIO as GPIO
 import time
 
-def setup
+def setup:
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setup(24, GPIO.OUT)
 	GPIO.setup(12, GPIO.OUT)
 
-def Blink(pin, iterations, speed)
+def Blink(pin, iterations, speed):
 	for i in range(0, iterations)
 		GPIO.output(pin, True)
 		time.sleep(speed)
