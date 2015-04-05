@@ -14,7 +14,7 @@ def Blink(pin, iterations, speed):
 		time.sleep(speed)
 
 redIterations = 10
-redSpeed = 100
+redSpeed = .5
 redPin = 24
 
 yellowPin = 12
