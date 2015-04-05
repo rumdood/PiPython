@@ -15,7 +15,7 @@ def Rave(pins, iterations, speed):
 	time.sleep(speed)
 
 	for i in range(0, iterations):
-		for color, pin in pins.items:
+		for color, pin in pins.items():
 			pinStatus = GPIO.input(pin)
 			if pinStatus > 0:
 				print(color + " OFF")
