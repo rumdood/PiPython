@@ -62,11 +62,12 @@ ledPins = { 'Red': 17, 'Green': 22, 'Blue': 24 }
 Frequency = 100
 
 colors = setup(ledPins, Frequency)
-iterations = 50
+iterations = 0
 
 try:
-	while (iterations -1 > 0):
+	while (iterations + 1 < maxIterations):
 		for i in range(0, 720, 5):
+			print("Iteration " + iterations)
 			color(PositiveSinWave(50, i, 0.5),
 				PositiveSinWave(50, i, 1),
 				PositiveSinWave(50, i, 2),
