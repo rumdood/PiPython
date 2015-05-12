@@ -65,7 +65,7 @@ colors = setup(ledPins, Frequency)
 
 try:
 
-	maxIterations = 5
+	maxIterations = 1
 	iterations = 0
 
 	while (iterations < maxIterations):
