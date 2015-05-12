@@ -54,7 +54,7 @@ frequency = 0.1
 setup(ledPins)
 
 try:
-	while true:
+	while 1:
 		for i in range(0, 720, 5):
 			color(PositiveSinWave(50, i, 0.5),
 				PositiveSinWave(50, i, 1),
