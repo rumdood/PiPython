@@ -20,7 +20,7 @@ def color(R, G, B, on_time):
 	pins['Green'].ChangeDutyCycle(0)
 	pins['Blue'].ChangeDutyCycle(0)
 
-def PositiveSinWave(aplitude, angle, frquency):
+def PositiveSinWave(amplitude, angle, frquency):
 	#angle in degrees  
     #creates a positive sin wave between 0 and amplitude*2  
     return amplitude + (amplitude * math.sin(math.radians(angle)*frequency) )  
