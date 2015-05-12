@@ -61,7 +61,7 @@ try:
 				PositiveSinWave(50, i, 2),
 				frequency )
 
-except KeyboardInterrupte:
+except KeyboardInterrupt:
 	pass
 
 pins['Red'].stop()
