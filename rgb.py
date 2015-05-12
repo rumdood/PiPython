@@ -11,14 +11,14 @@ def setup(pins):
 		GPIO.setup(pin, GPIO.OUT)
 
 def color(R, G, B, on_time):
-	pins['Red'].ChangeDutyCycle(R)
-	pins['Green'].ChangeDutyCycle(G)
-	pins['Blue'].ChangeDutyCycle(B)
+	ledPins['Red'].ChangeDutyCycle(R)
+	ledPins['Green'].ChangeDutyCycle(G)
+	ledPins['Blue'].ChangeDutyCycle(B)
 	time.sleep(on_time)
 
-	pins['Red'].ChangeDutyCycle(0)
-	pins['Green'].ChangeDutyCycle(0)
-	pins['Blue'].ChangeDutyCycle(0)
+	ledPins['Red'].ChangeDutyCycle(0)
+	ledPins['Green'].ChangeDutyCycle(0)
+	ledPins['Blue'].ChangeDutyCycle(0)
 
 def PositiveSinWave(amplitude, angle, frquency):
 	#angle in degrees  
@@ -64,8 +64,8 @@ try:
 except KeyboardInterrupt:
 	pass
 
-pins['Red'].stop()
-pins['Green'].stop()
-pins['Blue'].stop()
+ledPins['Red'].stop()
+ledPins['Green'].stop()
+ledPins['Blue'].stop()
 
 GPIO.cleanup()
