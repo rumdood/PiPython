@@ -10,7 +10,7 @@ def setup(pins, frequency):
 		print("Enabling " + color + " LED on pin " + str(pin))
 		GPIO.setup(pin, GPIO.OUT)
 
-	colorCollection = { , }
+	colorCollection = { 'foo' , 'bar'}
 	colorCollection['RED'] = GPIO.PWM(pins['Red'], frequency)
 	colorCollection['RED'].start(0)
 	colorCollection['BLUE'] = GPIO.PWM(pins['Blue'], frequency)
