@@ -84,4 +84,7 @@ colors['RED'].stop()
 colors['GREEN'].stop()
 colors['BLUE'].stop()
 
+for color, pin in ledPins.items():
+		GPIO.output(pin, False)
+
 GPIO.cleanup()
