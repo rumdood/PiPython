@@ -18,6 +18,8 @@ def setup(pins, frequency):
 	colorCollection['GREEN'] = GPIO.PWM(pins['Green'], frequency)
 	colorCollection['GREEN'].start(0)
 
+	return colorCollection
+
 def color(R, G, B, on_time):
 	colors['RED'].ChangeDutyCycle(R)
 	colors['GREEN'].ChangeDutyCycle(G)
