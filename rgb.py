@@ -28,7 +28,7 @@ def color(R, G, B, on_time):
 	colors['GREEN'].ChangeDutyCycle(0)
 	colors['BLUE'].ChangeDutyCycle(0)
 
-def PositiveSinWave(amplitude, angle, frquency):
+def PositiveSinWave(amplitude, angle, frequency):
 	#angle in degrees  
     #creates a positive sin wave between 0 and amplitude*2  
     return amplitude + (amplitude * math.sin(math.radians(angle)*frequency) )  
@@ -57,9 +57,9 @@ def Rave(pins, iterations, speed):
 		GPIO.output(pin, False)
 
 ledPins = { 'Red': 17, 'Green': 22, 'Blue': 24 }
-frequency = 100
+Frequency = 100
 
-colors = setup(ledPins, frequency)
+colors = setup(ledPins, Frequency)
 
 try:
 	while 1:
@@ -72,8 +72,8 @@ try:
 except KeyboardInterrupt:
 	pass
 
-ledPins['Red'].stop()
-ledPins['Green'].stop()
-ledPins['Blue'].stop()
+colors['RED'].stop()
+colors['GREEN'].stop()
+colors['BLUE'].stop()
 
 GPIO.cleanup()
