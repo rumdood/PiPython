@@ -62,9 +62,12 @@ ledPins = { 'Red': 17, 'Green': 22, 'Blue': 24 }
 Frequency = 100
 
 colors = setup(ledPins, Frequency)
-iterations = 0
 
 try:
+
+	maxIterations = 5
+    iterations = 0
+
 	while (iterations + 1 < maxIterations):
 		for i in range(0, 720, 5):
 			print("Iteration " + iterations)
