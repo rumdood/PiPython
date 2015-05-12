@@ -68,13 +68,14 @@ try:
 	maxIterations = 5
 	iterations = 0
 
-	while (iterations + 1 < maxIterations):
+	while (iterations < maxIterations):
 		for i in range(0, 720, 5):
-			print("Iteration " + iterations)
+			print("Iteration " + str(iterations))
 			color(PositiveSinWave(50, i, 0.5),
 				PositiveSinWave(50, i, 1),
 				PositiveSinWave(50, i, 2),
 				0.1 )
+		iterations = iterations + 1
 
 except KeyboardInterrupt:
 	pass
