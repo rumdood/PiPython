@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import math
 
-def setup(pins):
+def setup(pins, frequency):
 	GPIO.setmode(GPIO.BCM)
 
 	## Enable the pins tied to the LEDs
@@ -10,15 +10,23 @@ def setup(pins):
 		print("Enabling " + color + " LED on pin " + str(pin))
 		GPIO.setup(pin, GPIO.OUT)
 
+	colorCollection = { , }
+	colorCollection['RED'] = GPIO.PWM(pins['Red'], frequency)
+	colorCollection['RED'].start(0)
+	colorCollection['BLUE'] = GPIO.PWM(pins['Blue'], frequency)
+	colorCollection['BLUE'].start(0)
+	colorCollection['GREEN'] = GPIO.PWM(pins['Green'], frequency)
+	colorCollection['GREEN'].start(0)
+
 def color(R, G, B, on_time):
-	ledPins['Red'].ChangeDutyCycle(R)
-	ledPins['Green'].ChangeDutyCycle(G)
-	ledPins['Blue'].ChangeDutyCycle(B)
+	colors['RED'].ChangeDutyCycle(R)
+	colors['GREEN'].ChangeDutyCycle(G)
+	colors['BLUE'].ChangeDutyCycle(B)
 	time.sleep(on_time)
 
-	ledPins['Red'].ChangeDutyCycle(0)
-	ledPins['Green'].ChangeDutyCycle(0)
-	ledPins['Blue'].ChangeDutyCycle(0)
+	colors['RED'].ChangeDutyCycle(0)
+	colors['GREEN'].ChangeDutyCycle(0)
+	colors['BLUE'].ChangeDutyCycle(0)
 
 def PositiveSinWave(amplitude, angle, frquency):
 	#angle in degrees  
@@ -49,9 +57,9 @@ def Rave(pins, iterations, speed):
 		GPIO.output(pin, False)
 
 ledPins = { 'Red': 17, 'Green': 22, 'Blue': 24 }
-frequency = 0.1
+frequency = 100
 
-setup(ledPins)
+colors = setup(ledPins, frequency)
 
 try:
 	while 1:
@@ -59,7 +67,7 @@ try:
 			color(PositiveSinWave(50, i, 0.5),
 				PositiveSinWave(50, i, 1),
 				PositiveSinWave(50, i, 2),
-				frequency )
+				0.1 )
 
 except KeyboardInterrupt:
 	pass
