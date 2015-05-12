@@ -70,7 +70,7 @@ try:
 
 	while (iterations < maxIterations):
 		for i in range(0, 720, 5):
-			print("Iteration " + str(iterations))
+			print("Iteration " + str(i))
 			color(PositiveSinWave(50, i, 0.5),
 				PositiveSinWave(50, i, 1),
 				PositiveSinWave(50, i, 2),
