@@ -20,62 +20,71 @@ def setup(pins, frequency):
 
 	return colorCollection
 
+def fadeToColor(currentColor, targetColor, on_time):
+	unmatched = set(currentColor.items()) ^ set(targetColor.items())
+	if (len(unmatched) == 0):
+		return
+
+	for node, value in currentColor.items():
+		targetValue = targetColor[node]
+		if (targetValue < 0):
+			targetValue = 0
+		elif (targetValue > 100):
+			targetValue = 100
+
+		if value < targetValue:
+			currentColor[node] = value + 1
+		elif value > targetValue:
+			currentColor[node] = value - 1
+
+	color(currentColor['Red'], currentColor['Green'], currentColor['Blue'], on_time)
+	return fadeToColor(currentColor, targetColor, on_time)
+
 def color(R, G, B, on_time):
+	#print("Setting Colors to %s / %s / %s" % (R, G, B))
 	colors['RED'].ChangeDutyCycle(R)
 	colors['GREEN'].ChangeDutyCycle(G)
 	colors['BLUE'].ChangeDutyCycle(B)
 	time.sleep(on_time)
 
-	colors['RED'].ChangeDutyCycle(0)
-	colors['GREEN'].ChangeDutyCycle(0)
-	colors['BLUE'].ChangeDutyCycle(0)
+	#colors['RED'].ChangeDutyCycle(0)
+	#colors['GREEN'].ChangeDutyCycle(0)
+	#colors['BLUE'].ChangeDutyCycle(0)
 
 def PositiveSinWave(amplitude, angle, frequency):
 	#angle in degrees  
     #creates a positive sin wave between 0 and amplitude*2  
-    return amplitude + (amplitude * math.sin(math.radians(angle)*frequency) )  
-
-def Rave(pins, iterations, speed):
-	print("RAVING")
-	GPIO.output(pins['Red'], True)
-	time.sleep(speed)
-
-	for i in range(0, iterations):
-		for color, pin in pins.items():
-			pinStatus = GPIO.input(pin)
-			if pinStatus > 0:
-				print(color + " OFF")
-				GPIO.output(pin, False)
-			else:
-				print(color + " ON")
-				GPIO.output(pin, True)
-
-		##print("Iteration Complete " + str(i))
-		time.sleep(speed)
-			
-
-	## shut it all down
-	for color, pin in pins.items():
-		GPIO.output(pin, False)
+    return amplitude + (amplitude * math.sin(math.radians(angle)*frequency))
 
 ledPins = { 'Red': 17, 'Green': 22, 'Blue': 24 }
 Frequency = 100
 
 colors = setup(ledPins, Frequency)
 
+initialColor = { 'Red': 0, 'Green': 0, 'Blue': 0 }
+firstColor = { 'Red': 100, 'Green': 0, 'Blue': 100 }
+secondColor = { 'Red': 25, 'Green': 0, 'Blue': 75 }
+thirdColor = { 'Red': 0, 'Green': 75, 'Blue': 25 }
+
+colorSequence = [ thirdColor, secondColor, firstColor ]
+
+colorCycleDelay = .1
+colorFadeDelay = .1
+
 try:
+	color(0, 0, 0, 0) #set the initial color
+	targetColor = initialColor
 
-	maxIterations = 1
-	iterations = 0
+	while (True):
+		currentColor = targetColor
+		targetColor = colorSequence.pop()
 
-	while (iterations < maxIterations):
-		for i in range(0, 720, 5):
-			#print("Iteration " + str(i))
-			color(PositiveSinWave(50, i, 0.5),
-				PositiveSinWave(50, i, 1),
-				PositiveSinWave(50, i, 2),
-				0.1 )
-		iterations = iterations + 1
+		print("Cycling color to %s %s %s" % (targetColor['Red'], targetColor['Green'], targetColor['Blue']))
+
+		colorSequence.insert(0, currentColor)
+
+		fadeToColor(currentColor, targetColor, colorFadeDelay)
+		time.sleep(colorCycleDelay)
 
 except KeyboardInterrupt:
 	pass
@@ -83,8 +92,5 @@ except KeyboardInterrupt:
 colors['RED'].stop()
 colors['GREEN'].stop()
 colors['BLUE'].stop()
-
-#for color, pin in ledPins.items():
-#		GPIO.output(pin, False)
 
 GPIO.cleanup()
