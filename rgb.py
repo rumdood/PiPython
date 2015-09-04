@@ -21,6 +21,13 @@ def setup(pins, frequency):
 	return colorCollection
 
 def fadeToColor(currentColor, targetColor, on_time):
+	# don't let anyone set an out of bounds value
+	for n, v in targetColor.items():
+		if v > 100:
+			targetColor[n] = 100
+		elif v < 0:
+			targetColor[n] = 0
+		
 	unmatched = set(currentColor.items()) ^ set(targetColor.items())
 	if (len(unmatched) == 0):
 		return
