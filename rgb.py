@@ -1,6 +1,5 @@
 import RPi.GPIO as GPIO
 import time
-import math
 
 def setup(pins, frequency):
 	GPIO.setmode(GPIO.BCM)
@@ -29,15 +28,11 @@ def fadeToColor(currentColor, targetColor, on_time):
 			targetColor[n] = 0
 		
 	unmatched = set(currentColor.items()) ^ set(targetColor.items())
-	if (len(unmatched) == 0):
+	if (len(unmatched) == 0): # target color has been reached
 		return
 
 	for node, value in currentColor.items():
 		targetValue = targetColor[node]
-		if (targetValue < 0):
-			targetValue = 0
-		elif (targetValue > 100):
-			targetValue = 100
 
 		if value < targetValue:
 			currentColor[node] = value + 1
@@ -54,21 +49,12 @@ def color(R, G, B, on_time):
 	colors['BLUE'].ChangeDutyCycle(B)
 	time.sleep(on_time)
 
-	#colors['RED'].ChangeDutyCycle(0)
-	#colors['GREEN'].ChangeDutyCycle(0)
-	#colors['BLUE'].ChangeDutyCycle(0)
-
-def PositiveSinWave(amplitude, angle, frequency):
-	#angle in degrees  
-    #creates a positive sin wave between 0 and amplitude*2  
-    return amplitude + (amplitude * math.sin(math.radians(angle)*frequency))
-
+# This is where the fun begins
 ledPins = { 'Red': 17, 'Green': 22, 'Blue': 24 }
 Frequency = 100
 
 colors = setup(ledPins, Frequency)
 
-initialColor = { 'Red': 0, 'Green': 0, 'Blue': 0 }
 firstColor = { 'Red': 100, 'Green': 0, 'Blue': 100 }
 secondColor = { 'Red': 25, 'Green': 0, 'Blue': 75 }
 thirdColor = { 'Red': 0, 'Green': 75, 'Blue': 25 }
@@ -79,7 +65,7 @@ colorCycleDelay = .1
 colorFadeDelay = .1
 
 try:
-	color(0, 0, 0, 0) #set the initial color
+	color(0, 0, 0, 0) #set the initial color to all off
 	targetColor = initialColor
 
 	while (True):
