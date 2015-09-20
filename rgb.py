@@ -1,3 +1,9 @@
+"""
+
+This file is mostly for reference - it's been used as the test bed for figuring stuff out
+
+"""
+
 import RPi.GPIO as GPIO
 import time
 
