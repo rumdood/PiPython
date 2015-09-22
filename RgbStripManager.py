@@ -31,7 +31,7 @@ class RgbStripManager:
 			# check for the local file first
 			def_sequence_file = self.default_sequence + '.json'
 			
-			print("Default Sequence File: %s" def_sequence_file)
+			print("Default Sequence File: %s" % self.def_sequence_file)
 			
 			if (os.path.isfile(def_sequence_file)):
 				print("-->Opening sequence file...")
