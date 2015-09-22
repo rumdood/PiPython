@@ -110,7 +110,7 @@ class RgbStripManager:
 		self.colors = self.setup_gpio(self.led_pins, self.led_frequency)
 		
 		try:
-			set_color(0, 0, 0, 0) #set the initial set_color to all off
+			self.set_color(0, 0, 0, 0) #set the initial set_color to all off
 		
 			while (True):
 				currentColor = targetColor
