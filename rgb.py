@@ -61,6 +61,7 @@ Frequency = 100
 
 colors = setup(ledPins, Frequency)
 
+initialColor = { 'Red': 0, 'Green': 0, 'Blue': 0 }
 firstColor = { 'Red': 100, 'Green': 0, 'Blue': 100 }
 secondColor = { 'Red': 25, 'Green': 0, 'Blue': 75 }
 thirdColor = { 'Red': 0, 'Green': 75, 'Blue': 25 }
