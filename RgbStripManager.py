@@ -70,25 +70,24 @@ class RgbStripManager:
 		
 	def fade_to_color(self, currentColor, targetColor, on_time):
 		# don't let anyone set an out of bounds value
-		for n, v in targetColor.items():
-			if v > 100:
-				targetColor[n] = 100
-			elif v < 0:
-				targetColor[n] = 0
-			
-		unmatched = set(currentColor.items()) ^ set(targetColor.items())
-		if (len(unmatched) == 0): # target set_color has been reached
-			return
+		if (currentColor == targetColor):
+			return;
+		
+		# I'm sure there's a better way to do this next bit...
+		if (currentColor.red < targetColor.red):
+			currentColor.red = currentColor.red + 1
+		elif (currentColor.red > targetColor.red):
+			currentColor.red = currentColor.red - 1
+		if (currentColor.green < targetColor.green):
+			currentColor.green = currentColor.green + 1
+		elif (currentColor.green > targetColor.green):
+			currentColor.green = currentColor.green - 1
+		if (currentColor.blue < targetColor.blue):
+			currentColor.blue = currentColor.blue + 1
+		elif (currentColor.blue > targetColor.blue):
+			currentColor.blue = currentColor.blue - 1
 	
-		for node, value in currentColor.items():
-			targetValue = targetColor[node]
-	
-			if value < targetValue:
-				currentColor[node] = value + 1
-			elif value > targetValue:
-				currentColor[node] = value - 1
-	
-		self.set_color(currentColor['Red'], currentColor['Green'], currentColor['Blue'], on_time)
+		self.set_color(currentColor.red, currentColor.green, currentColor.blue, on_time)
 		return self.fade_to_color(currentColor, targetColor, on_time)
 		
 	def set_color(self, R, G, B, on_time):
@@ -107,7 +106,7 @@ class RgbStripManager:
 		time.sleep(10)
 		
 	def run(self):
-		targetColor = { 'Red': 0, 'Green': 0, 'Blue': 0 } # default starting point
+		targetColor = RgbColor(0, 0, 0) # default starting point
 		self.colors = self.setup_gpio(self.led_pins, self.led_frequency)
 		
 		try:
@@ -117,7 +116,7 @@ class RgbStripManager:
 				currentColor = targetColor
 				targetColor = self.currentColorSequence.get_next_color()
 		
-				print("Cycling set_color to %s %s %s" % (targetColor['Red'], targetColor['Green'], targetColor['Blue']))
+				print("Cycling set_color to %s %s %s" % (targetColor.red, targetColor.green, targetColor.blue))
 		
 				fade_to_color(currentColor, targetColor, self.color_fade_delay)
 				time.sleep(self.color_cycle_delay)
