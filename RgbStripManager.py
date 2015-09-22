@@ -24,14 +24,6 @@ class RgbStripManager:
 			self.led_frequency = settings["led_frequency"]
 			self.color_cycle_delay = settings["color_cycle_delay"]
 			self.color_fade_delay = settings["color_fade_delay"]
-		
-		if (self.default_sequence != ''):
-			def_sequence_file = self.default_sequence + '.json'
-			with open(def_sequence_file) as sequence_file:
-				self.currentColorSequence = json.load(sequence_file)
-				
-		if (self.azure_account_key != '' and self.azure_account_name != ''):
-			self.azure_repository = new rgpAzureRepository(self.azure_account_name, self.azure_account_key)
 				
 	def try_get_default_sequence(self):
 		if (self.default_sequence != ''):
@@ -47,7 +39,7 @@ class RgbStripManager:
 				self.currentColorSequence.load_from_json(json_obj)
 			else:
 				if (self.azure_account_key != '' and self.azure_account_name != ''):
-					self.azure_repository = new rgpAzureRepository(self.azure_account_name, self.azure_account_key)
+					self.azure_repository = rgpAzureRepository(self.azure_account_name, self.azure_account_key)
 					
 					if (self.default_sequence != ''):
 						self.currentColorSequence = self.azure_repository.get_sequence(self.default_sequence)
