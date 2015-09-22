@@ -107,6 +107,7 @@ class RgbStripManager:
 		time.sleep(10)
 		
 	def run(self):
+		targetColor = { 'Red': 0, 'Green': 0, 'Blue': 0 } # default starting point
 		self.colors = self.setup_gpio(self.led_pins, self.led_frequency)
 		
 		try:
