@@ -106,7 +106,7 @@ class RgbStripManager:
 		GPIO.cleanup()
 		time.sleep(10)
 		
-	def run():
+	def run(self):
 		self.colors = self.setup_gpio(self.led_pins, self.led_frequency)
 		
 		try:
