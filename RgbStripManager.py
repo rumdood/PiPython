@@ -31,7 +31,10 @@ class RgbStripManager:
 			# check for the local file first
 			def_sequence_file = self.default_sequence + '.json'
 			
+			print("Default Sequence File: %s" def_sequence_file)
+			
 			if (os.path.isfile(def_sequence_file)):
+				print("-->Opening sequence file...")
 				with open(def_sequence_file) as sequence_file:
 					json_obj = json.load(sequence_file)
 					
@@ -44,7 +47,7 @@ class RgbStripManager:
 					if (self.default_sequence != ''):
 						self.currentColorSequence = self.azure_repository.get_sequence(self.default_sequence)
 			
-			if (len(self.default_sequence.colors) > 0):
+			if (len(self.currentColorSequence.colors) > 0):
 				return True
 		else:
 			return False
