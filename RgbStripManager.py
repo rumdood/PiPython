@@ -70,6 +70,21 @@ class RgbStripManager:
 		
 	def fade_to_color(self, currentColor, targetColor, on_time):
 		# don't let anyone set an out of bounds value
+		if (targetColor.red > 100):
+			targetColor.red = 100
+		elif (targetColor.red < 0):
+			targetColor.red = 0
+			
+		if (targetColor.green > 100):
+			targetColor.green = 100
+		elif (targetColor.green < 0):
+			targetColor.green = 0;
+		
+		if (targetColor.blue > 100):
+			targetColor.blue = 100
+		elif (targetColor.blue < 0):
+			targetColor.blue = 0
+		
 		if (currentColor == targetColor):
 			return;
 		
