@@ -128,8 +128,14 @@ class RgbStripManager:
 			self.set_color(0, 0, 0, 0) #set the initial set_color to all off
 		
 			while (True):
+				print("Current Color: %s %s %s" % (currentColor.red, currentColor.green, currentColor.blue))
 				currentColor = targetColor
+				
+				print("Current Color set to: %s %s %s" % (currentColor.red, currentColor.green, currentColor.blue))
+				
 				targetColor = self.currentColorSequence.get_next_color()
+				
+				print("Current Color after get_next_color: %s %s %s" % (currentColor.red, currentColor.green, currentColor.blue))
 		
 				print("Cycling set_color to %s %s %s" % (targetColor.red, targetColor.green, targetColor.blue))
 		
