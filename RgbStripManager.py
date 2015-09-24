@@ -68,42 +68,42 @@ class RgbStripManager:
 	
 		return colorCollection
 		
-	def fade_to_color(self, startColor, endColor, on_time):
+	def fade_to_color(self, currentColor, targetColor, on_time):
 		# don't let anyone set an out of bounds value
-		if (endColor.red > 100):
-			endColor.red = 100
-		elif (endColor.red < 0):
-			endColor.red = 0
+		if (targetColor.red > 100):
+			targetColor.red = 100
+		elif (targetColor.red < 0):
+			targetColor.red = 0
 			
-		if (endColor.green > 100):
-			endColor.green = 100
-		elif (endColor.green < 0):
-			endColor.green = 0;
+		if (targetColor.green > 100):
+			targetColor.green = 100
+		elif (targetColor.green < 0):
+			targetColor.green = 0;
 		
-		if (endColor.blue > 100):
-			endColor.blue = 100
-		elif (endColor.blue < 0):
-			endColor.blue = 0
+		if (targetColor.blue > 100):
+			targetColor.blue = 100
+		elif (targetColor.blue < 0):
+			targetColor.blue = 0
 		
-		if (startColor == endColor):
+		if (currentColor == targetColor):
 			return;
 		
 		# I'm sure there's a better way to do this next bit...
-		if (startColor.red < endColor.red):
-			startColor.red = startColor.red + 1
-		elif (startColor.red > endColor.red):
-			startColor.red = startColor.red - 1
-		if (startColor.green < endColor.green):
-			startColor.green = startColor.green + 1
-		elif (startColor.green > endColor.green):
-			startColor.green = startColor.green - 1
-		if (startColor.blue < endColor.blue):
-			startColor.blue = startColor.blue + 1
-		elif (startColor.blue > endColor.blue):
-			startColor.blue = startColor.blue - 1
+		if (currentColor.red < targetColor.red):
+			currentColor.red = currentColor.red + 1
+		elif (currentColor.red > targetColor.red):
+			currentColor.red = currentColor.red - 1
+		if (currentColor.green < targetColor.green):
+			currentColor.green = currentColor.green + 1
+		elif (currentColor.green > targetColor.green):
+			currentColor.green = currentColor.green - 1
+		if (currentColor.blue < targetColor.blue):
+			currentColor.blue = currentColor.blue + 1
+		elif (currentColor.blue > targetColor.blue):
+			currentColor.blue = currentColor.blue - 1
 	
-		self.set_color(startColor.red, startColor.green, startColor.blue, on_time)
-		return self.fade_to_color(startColor, endColor, on_time)
+		self.set_color(currentColor.red, currentColor.green, currentColor.blue, on_time)
+		return self.fade_to_color(currentColor, targetColor, on_time)
 		
 	def set_color(self, R, G, B, on_time):
 		#print("Setting Colors to %s / %s / %s" % (R, G, B))
@@ -129,14 +129,9 @@ class RgbStripManager:
 			self.set_color(0, 0, 0, 0) #set the initial set_color to all off
 		
 			while (True):
-				currentColor = targetColor
-				
 				targetColor = self.currentColorSequence.get_next_color()
-		
-				print("Cycling set_color to %s %s %s" % (targetColor.red, targetColor.green, targetColor.blue))
-				print("currentColor before cyle: %s" % currentColor.red)		
+				#print("Cycling set_color to %s %s %s" % (targetColor.red, targetColor.green, targetColor.blue))		
 				self.fade_to_color(currentColor, targetColor, self.color_fade_delay)
-				print("currentColor after cyle: %s" % currentColor.red)
 				time.sleep(self.color_cycle_delay)
 		
 		except KeyboardInterrupt:
