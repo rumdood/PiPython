@@ -133,7 +133,7 @@ class RgbStripManager:
 		
 				print("Cycling set_color to %s %s %s" % (targetColor.red, targetColor.green, targetColor.blue))
 		
-				fade_to_color(currentColor, targetColor, self.color_fade_delay)
+				self.fade_to_color(currentColor, targetColor, self.color_fade_delay)
 				time.sleep(self.color_cycle_delay)
 		
 		except KeyboardInterrupt:
