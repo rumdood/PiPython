@@ -129,18 +129,13 @@ class RgbStripManager:
 			self.set_color(0, 0, 0, 0) #set the initial set_color to all off
 		
 			while (True):
-				print("Current Color: %s %s %s" % (currentColor.red, currentColor.green, currentColor.blue))
-				currentColor = targetColor
-				
-				print("Current Color set to: %s %s %s" % (currentColor.red, currentColor.green, currentColor.blue))
+				#currentColor = targetColor
 				
 				targetColor = self.currentColorSequence.get_next_color()
-				
-				print("Current Color after get_next_color: %s %s %s" % (currentColor.red, currentColor.green, currentColor.blue))
 		
 				print("Cycling set_color to %s %s %s" % (targetColor.red, targetColor.green, targetColor.blue))
 		
-				self.fade_to_color(currentColor, targetColor, self.color_fade_delay)
+				#self.fade_to_color(currentColor, targetColor, self.color_fade_delay)
 				time.sleep(self.color_cycle_delay)
 		
 		except KeyboardInterrupt:
