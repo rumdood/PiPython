@@ -122,6 +122,7 @@ class RgbStripManager:
 		
 	def run(self):
 		targetColor = RgbColor(0, 0, 0) # default starting point
+		currentColor = RgbColor(0, 0, 0)
 		self.colors = self.setup_gpio(self.led_pins, self.led_frequency)
 		
 		try:
