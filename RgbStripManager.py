@@ -47,9 +47,12 @@ class RgbStripManager:
 		GPIO.setmode(GPIO.BCM)
 	
 		## Enable the pins tied to the LEDs
-		for set_color, pin in pins.items():
-			print("Enabling " + set_color + " LED on pin " + str(pin))
-			GPIO.setup(pin, GPIO.OUT)
+		#for set_color, pin in pins.items():
+		#	print("Enabling " + set_color + " LED on pin " + str(pin))
+		#	GPIO.setup(pin, GPIO.OUT)
+		GPIO.setup(pins.red, GPIO.OUT)
+		GPIO.setup(pins.green, GPIO.OUT)
+		GPIO.setup(pins.blue, GPIO.OUT)
 	
 		colorCollection = dict()
 		colorCollection['RED'] = GPIO.PWM(pins.red, frequency)
