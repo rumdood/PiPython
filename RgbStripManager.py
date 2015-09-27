@@ -132,6 +132,8 @@ class RgbStripManager:
 		if (currentColor <> RgbColor(0, 0, 0)):
 			self.fade_to_color(currentColor, RgbColor(0, 0, 0), self._color_fade_delay)
 		
+		self.cleanUp()
+		
 	def run(self):
 		self.colors = self.setup_gpio(self.led_pins, self.led_frequency)
 		
@@ -140,6 +142,7 @@ class RgbStripManager:
 			self.run_color_cycles()
 		
 		except KeyboardInterrupt:
+			self.disable()
 			pass
-				
-		self.cleanUp()
+		
+		#self.cleanUp()
