@@ -120,6 +120,9 @@ class RgbStripManager:
 		self.__bryan_of_nazareth = False
 		
 	def run_color_cycles(self):
+		targetColor = RgbColor(0, 0, 0) # default starting point
+		currentColor = RgbColor(0, 0, 0)
+		
 		while (self.__bryan_of_nazareth):
 			targetColor = self.currentColorSequence.get_next_color()
 			#print("Cycling set_color to %s %s %s" % (targetColor.red, targetColor.green, targetColor.blue))		
@@ -127,8 +130,6 @@ class RgbStripManager:
 			time.sleep(self.color_cycle_delay)
 		
 	def run(self):
-		targetColor = RgbColor(0, 0, 0) # default starting point
-		currentColor = RgbColor(0, 0, 0)
 		self.colors = self.setup_gpio(self.led_pins, self.led_frequency)
 		
 		try:
