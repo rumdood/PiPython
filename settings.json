@@ -1,9 +1,23 @@
 {
-	"default_sequence" : "test_sequence",
-	"azure_account_name" : "",
-	"azure_account_key" : "",
-	"led_pins" : {"red" : 17, "green" : 22, "blue" : 24},
-	"led_frequency" : 100,
-	"color_cycle_delay" : 0.1,
-	"color_fade_delay" : 0.1
+  "default_sequence" : "test_sequence",
+  "led_pins" : {
+    "red" : 17,
+    "green" : 22,
+    "blue" : 24
+  },
+  "led_frequency" : 100,
+  "color_cycle_delay" : 0.1,
+  "color_fade_delay" : 0.1,
+  "azure_settings" : {
+    "storage" : {
+      "storage_account_name" : "",
+      "storage_account_key" : ""
+    },
+    "service_bus" : {
+      "namespace" : "",
+      "key_name" : "",
+	    "key_value" : "",
+      "queue_name" : ""
+	  } 
+  }
 }

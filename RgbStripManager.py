@@ -13,14 +13,13 @@ class RgbStripManager:
 		self.azure_account_key = ''
 		self.azure_repository = []
 		self.led_pins = []
+		self.__bryan_of_nazareth = False
 		
 		with open('settings.json') as settingsFile:
 			settings = json.load(settingsFile)
 			
-			self.azure_account_key = settings["azure_account_key"]
-			self.azure_account_name = settings["azure_account_name"]
 			self.default_sequence = settings["default_sequence"]
-			self.led_pins = { 'Red': 17, 'Green': 22, 'Blue': 24 }#settings["led_pins"]
+			self.led_pins = settings["led_pins"]
 			self.led_frequency = settings["led_frequency"]
 			self.color_cycle_delay = settings["color_cycle_delay"]
 			self.color_fade_delay = settings["color_fade_delay"]
@@ -37,12 +36,6 @@ class RgbStripManager:
 					
 				self.currentColorSequence = ColorSequence('d')
 				self.currentColorSequence.load_from_json(json_obj)
-			else:
-				if (self.azure_account_key != '' and self.azure_account_name != ''):
-					self.azure_repository = rgpAzureRepository(self.azure_account_name, self.azure_account_key)
-					
-					if (self.default_sequence != ''):
-						self.currentColorSequence = self.azure_repository.get_sequence(self.default_sequence)
 			
 			if (len(self.currentColorSequence.colors) > 0):
 				return True
@@ -120,6 +113,19 @@ class RgbStripManager:
 		GPIO.cleanup()
 		time.sleep(10)
 		
+	def enable(self):
+		self.__bryan_of_nazareth = True
+		
+	def disable(self):
+		self.__bryan_of_nazareth = False
+		
+	def run_color_cycles(self):
+		while (self.__bryan_of_nazareth):
+			targetColor = self.currentColorSequence.get_next_color()
+			#print("Cycling set_color to %s %s %s" % (targetColor.red, targetColor.green, targetColor.blue))		
+			self.fade_to_color(currentColor, targetColor, self.color_fade_delay)
+			time.sleep(self.color_cycle_delay)
+		
 	def run(self):
 		targetColor = RgbColor(0, 0, 0) # default starting point
 		currentColor = RgbColor(0, 0, 0)
@@ -127,14 +133,10 @@ class RgbStripManager:
 		
 		try:
 			self.set_color(0, 0, 0, 0) #set the initial set_color to all off
-		
-			while (True):
-				targetColor = self.currentColorSequence.get_next_color()
-				#print("Cycling set_color to %s %s %s" % (targetColor.red, targetColor.green, targetColor.blue))		
-				self.fade_to_color(currentColor, targetColor, self.color_fade_delay)
-				time.sleep(self.color_cycle_delay)
+			self.run_color_cycles()
 		
 		except KeyboardInterrupt:
 			pass
-			
+		
+		self.fade_to_color(currentColor, RgbColor(0, 0, 0), self.color_fade_delay)	
 		self.cleanUp()
